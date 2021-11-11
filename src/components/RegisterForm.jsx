@@ -45,6 +45,7 @@ function RegisterForm() {
             required
             fullWidth
             id="name"
+            variant="standard"
             label="Full Name"
             name="name"
             autoFocus
@@ -53,6 +54,7 @@ function RegisterForm() {
             margin="normal"
             required
             fullWidth
+            variant="standard"
             id="email"
             label="Email Address"
             name="email"
@@ -63,6 +65,7 @@ function RegisterForm() {
             fullWidth
             name="password"
             label="Password"
+            variant="standard"
             type="password"
             id="password"
             autoComplete="current-password"

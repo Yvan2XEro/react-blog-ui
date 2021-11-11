@@ -20,7 +20,29 @@ export async function login({ username, password }) {
     });
 }
 
+export function getUser() {
+  isAuthenticated();
+  const token = localStorage.getItem("token") || null;
+  if (!isAuthenticated()) return null;
+  const { id, name, username, roles } = jwtDecode(token);
+  return { id, name, username, roles };
+}
+
+function isValid(token) {
+  return token !== null && jwtDecode(token).exp * 1000 > new Date().getTime();
+}
+
+export function isAdmin() {
+  const user = getUser();
+  return user !== null && user.roles.indexOf("ROLE_ADMIN") !== -1;
+}
+
 export function isAuthenticated() {
   const token = localStorage.getItem("token") || null;
-  return token != null && jwtDecode(token).exp * 1000 > new Date().getTime();
+  if (!token) return false;
+  if (!isValid(token)) {
+    localStorage.removeItem("token");
+    return false;
+  }
+  return true;
 }

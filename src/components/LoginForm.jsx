@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "./Copyright";
 import { login } from "../services/authService";
 
-function LoginForm({ onSuccess }) {
+function LoginForm({ onSuccess, onFailure }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
@@ -27,6 +27,10 @@ function LoginForm({ onSuccess }) {
       })
       .catch((err) => {
         console.log(err);
+        if ((err.response.status = 401)) {
+          setPassword("");
+          onFailure();
+        }
       });
   };
 
@@ -57,6 +61,7 @@ function LoginForm({ onSuccess }) {
             label="Email Address"
             name="email"
             autoComplete="email"
+            variant="standard"
             autoFocus
           />
           <TextField
@@ -64,9 +69,11 @@ function LoginForm({ onSuccess }) {
             margin="normal"
             required
             fullWidth
+            variant="standard"
             name="password"
             label="Password"
             type="password"
+            value={password}
             id="password"
           />
           <FormControlLabel

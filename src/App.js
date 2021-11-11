@@ -10,7 +10,6 @@ import { setup } from "./services/http";
 import { LoggedInContext } from "./contexts";
 import { isAuthenticated as isAuth } from "./services/authService";
 import { Fragment, useState } from "react";
-import GuardedRoute from "./components/guards/GuardedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ShowPage from "./pages/ShowPage";
@@ -23,8 +22,8 @@ function App() {
   const [mode, setMode] = useState(localStorage.getItem("theme") || "light");
   const LoggedInContextValue = { isAuthenticated, setIsAuthenticated };
   const onToggleDarkTheme = () => {
+    localStorage.setItem("theme", mode === "dark" ? "light" : "dark");
     setMode(mode === "dark" ? "light" : "dark");
-    localStorage.setItem("theme", mode);
   };
   const theme = createTheme({ palette: { mode } });
 
@@ -34,7 +33,7 @@ function App() {
         <BrowserRouter>
           <Fragment>
             <Header
-              isDarkTheme={mode == "dark"}
+              isDarkTheme={mode === "dark"}
               onToggleDarkTheme={onToggleDarkTheme}
             />
             <Routes>

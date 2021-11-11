@@ -10,12 +10,12 @@ function GuardedRoute({ path, element, role = null, children, ...rest }) {
   const { isLoggedIn } = useContext(LoggedInContext);
 
   return <Outlet />;
-  // if (isLoggedIn && role === ROLE_USER) {
-  // return <Route path={path} element={element} {...rest} />;
-  // }
-  // if (isLoggedIn && role == ROLE_ANONIMOUS) {
-  //   return <Navigate to="posts" />;
-  // }
+  if (isLoggedIn && role === ROLE_USER) {
+    return <Route path={path} element={element} {...rest} />;
+  }
+  if (isLoggedIn && role == ROLE_ANONIMOUS) {
+    return <Navigate to="posts" />;
+  }
 }
 
 export default GuardedRoute;

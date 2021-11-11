@@ -5,21 +5,23 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LoggedInContext } from "./../contexts";
 import LoginIcon from "@mui/icons-material/Login";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Button, Switch } from "@mui/material";
-import { logout } from "../services/authService";
+import { getUser, logout } from "../services/authService";
 import { toast } from "react-toastify";
 
 export default function Header({ onToggleDarkTheme, isDarkTheme }) {
   const { isAuthenticated, setIsAuthenticated } = useContext(LoggedInContext);
 
+  const navigate = useNavigate();
   const handleLogout = () => {
     logout();
     toast.warn("You logged out!");
+    navigate("/");
     setIsAuthenticated(false);
   };
   return (
@@ -78,14 +80,19 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
             </>
           )}
           {isAuthenticated && (
-            <Button
-              className="nav-link"
-              edge="start"
-              color="inherit"
-              onClick={() => handleLogout()}
-            >
-              <ExitToAppIcon size="small" />
-            </Button>
+            <>
+              <Typography variant="small" component="div">
+                {getUser().username}
+              </Typography>
+              <Button
+                className="nav-link"
+                edge="start"
+                color="inherit"
+                onClick={() => handleLogout()}
+              >
+                <ExitToAppIcon size="small" />
+              </Button>
+            </>
           )}
           <Switch
             checked={isDarkTheme}
