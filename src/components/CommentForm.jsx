@@ -5,6 +5,7 @@ import { Button, TextField, Typography } from "@mui/material";
 import { postComment } from "../services/commentServices";
 import { getUser } from "../services/authService";
 import { toast } from "react-toastify";
+import SendIcon from '@mui/icons-material/Send';
 
 function CommentForm({ post, onSuccess }) {
   const [content, setContent] = useState("");
@@ -44,7 +45,7 @@ function CommentForm({ post, onSuccess }) {
           size="medium"
           sx={{ mb: 2, mt: 2 }}
         >
-          Post
+          <SendIcon/>
         </Button>
       </Box>
     </>

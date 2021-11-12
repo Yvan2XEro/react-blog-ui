@@ -34,7 +34,6 @@ export default function EditModal({post, onSuccess, onFailure, open, onClose}) {
                 onSuccess()
             })
         }
-        
     }
     console.log(post)
     const [article, setArticle] = React.useState(post!=null?post:{id:0,title:"", content: "", author: ""})
@@ -59,10 +58,9 @@ export default function EditModal({post, onSuccess, onFailure, open, onClose}) {
       aria-describedby="modal-modal-description"
     >
         <Box sx={style}  component={Paper}>
-
-        <Typography sx={{ mt: 2 }} component="h4" variant="h4">
-            {article.author===null?"New post": "Edit post"}
-        </Typography>
+            <Typography sx={{ mt: 2 }} component="h4" variant="h4">
+                {article.author===null?"New post": "Edit post"}
+            </Typography>
             <FormControl sx={{ mt: 2 }} fullWidth>
             <InputLabel id="demo-simple-select-label">Author</InputLabel>
                 <Select
