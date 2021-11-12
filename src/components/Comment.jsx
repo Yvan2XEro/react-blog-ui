@@ -16,7 +16,7 @@ function Comment({ data, onChange }) {
 
   const validName = () => {
     if (!isAuthenticated) return data.user.name;
-    if (user != null && user.id != data.user.id) return data.user.name;
+    if (user !== null && user.id !== data.user.id) return data.user.name;
     return "You";
   };
 

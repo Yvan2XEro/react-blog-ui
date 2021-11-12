@@ -13,6 +13,7 @@ import { Fragment, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ShowPage from "./pages/ShowPage";
+import Administration from "./pages/Adminsitration";
 
 setup();
 
@@ -38,8 +39,9 @@ function App() {
             />
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage  />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/administration" element={<Administration />} />
               <Route path="/posts/:id" element={<ShowPage />} />
               <Route path="/posts" element={<PostsPage />} />
             </Routes>
