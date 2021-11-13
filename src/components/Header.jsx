@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import AppBar from "@mui/material/AppBar";
@@ -11,19 +11,30 @@ import LoginIcon from "@mui/icons-material/Login";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Button, Switch } from "@mui/material";
-import { getUser, logout } from "../services/authService";
+import {
+  getUser,
+  isAdmin as userIsadmin,
+  logout,
+} from "../services/authService";
 import { toast } from "react-toastify";
 
 export default function Header({ onToggleDarkTheme, isDarkTheme }) {
   const { isAuthenticated, setIsAuthenticated } = useContext(LoggedInContext);
 
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(userIsadmin());
+
   const handleLogout = () => {
     logout();
     toast.warn("You logged out!");
     navigate("/");
     setIsAuthenticated(false);
   };
+
+  useEffect(() => {
+    setIsAdmin(userIsadmin());
+  }, [isAuthenticated]);
+
   return (
     <>
       <CssBaseline />
@@ -93,6 +104,23 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
                 <ExitToAppIcon size="small" />
               </Button>
             </>
+          )}
+          {isAdmin && (
+            <IconButton
+              size="small"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                to="administration"
+              >
+                Administration
+              </NavLink>
+            </IconButton>
           )}
           <Switch
             checked={isDarkTheme}
