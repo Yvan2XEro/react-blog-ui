@@ -39,9 +39,9 @@ function App() {
             />
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/administration" element={<Administration />} />
+              <Route path="/login" element={<LoginPage  />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/administration" element={<Administration />} />
               <Route path="/posts/:id" element={<ShowPage />} />
               <Route path="/posts" element={<PostsPage />} />
             </Routes>
