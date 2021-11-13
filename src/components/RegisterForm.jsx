@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
 import Paper from "@mui/material/Paper";
@@ -12,16 +12,28 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "./Copyright";
+import { isValiEmail } from "../services/validators";
+import { register } from "../services/userServices";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  console.log({
-    email: data.get("email"),
-    password: data.get("password"),
-  });
-};
 function RegisterForm() {
+  const navigate = useNavigate()
+  const [userInputs, setUserInputs] = useState({
+    name: "", email: "", password: ""
+  })
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    if(userInputs.name.length>3 && userInputs.password.length>4 && isValiEmail(userInputs.email)) {
+      await register(userInputs).then(()=>{
+        toast.success("Register success!")
+        navigate("/login")
+      }).catch(()=>{
+        toast.error("An error occured!")
+      })
+    }
+  }
   return (
     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
       <Box
@@ -45,6 +57,7 @@ function RegisterForm() {
             required
             fullWidth
             id="name"
+            onChange={({target})=>setUserInputs({...userInputs, name: target.value})}
             variant="standard"
             label="Full Name"
             name="name"
@@ -53,6 +66,7 @@ function RegisterForm() {
           <TextField
             margin="normal"
             required
+            onChange={({target})=>setUserInputs({...userInputs, email: target.value})}
             fullWidth
             variant="standard"
             id="email"
@@ -62,6 +76,7 @@ function RegisterForm() {
           <TextField
             margin="normal"
             required
+            onChange={({target})=>setUserInputs({...userInputs, password: target.value})}
             fullWidth
             name="password"
             label="Password"
