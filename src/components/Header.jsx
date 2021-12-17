@@ -17,6 +17,7 @@ import {
   logout,
 } from "../services/authService";
 import { toast } from "react-toastify";
+import { Box } from "@mui/system";
 
 export default function Header({ onToggleDarkTheme, isDarkTheme }) {
   const { isAuthenticated, setIsAuthenticated } = useContext(LoggedInContext);
@@ -39,18 +40,12 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
     <>
       <CssBaseline />
       <AppBar position="fixed">
-        <Toolbar position="static">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
+        <Toolbar>
+          <Box sx={{ mr: 2 }}>
             <NavLink to="/" className="nav-link" activeClassName="active">
               <HomeIcon />
             </NavLink>
-          </IconButton>
+          </Box>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <NavLink className="nav-link" activeClassName="active" to="posts">
               News
@@ -58,13 +53,7 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
           </Typography>
           {!isAuthenticated && (
             <>
-              <IconButton
-                size="small"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
+              <Box size="small" sx={{ mr: 2 }}>
                 <NavLink
                   className="nav-link"
                   activeClassName="active"
@@ -72,14 +61,8 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
                 >
                   <LoginIcon size="large" edge="start" color="inherit" />
                 </NavLink>
-              </IconButton>
-              <IconButton
-                size="small"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
+              </Box>
+              <Box sx={{ mr: 2 }}>
                 <NavLink
                   className="nav-link"
                   activeClassName="active"
@@ -87,7 +70,7 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
                 >
                   <PersonAddIcon />
                 </NavLink>
-              </IconButton>
+              </Box>
             </>
           )}
           {isAuthenticated && (
@@ -106,13 +89,7 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
             </>
           )}
           {isAdmin && (
-            <IconButton
-              size="small"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
+            <Box sx={{ mr: 2 }}>
               <NavLink
                 className="nav-link"
                 activeClassName="active"
@@ -120,7 +97,7 @@ export default function Header({ onToggleDarkTheme, isDarkTheme }) {
               >
                 Administration
               </NavLink>
-            </IconButton>
+            </Box>
           )}
           <Switch
             checked={isDarkTheme}
